@@ -6,7 +6,13 @@ and last chars of the string are the same.
 ['abc', 'aa', 'bb'] yields 2
 */
 export function matchEnds(words) {
-  // YOUR CODE HERE
+  let count = 0;
+  words.map((elem) => {
+    if(elem.length > 1 && elem[0] === elem[elem.length - 1]) {
+      count += 1;
+    }
+  })
+  return count;
 }
 
 /*
@@ -18,7 +24,20 @@ and passed array in center
 [5, 2, 14] yields [12, 5, 2, 14, 16]
 */
 export function addFirstAndLast(numbers) {
-  // YOUR CODE HERE
+
+  // let min = Math.max(...numbers) - Math.min(...numbers);
+  // let max = Math.min(...numbers) + Math.max(...numbers);
+  // numbers.push(max);
+  // numbers.unshift(min);
+  // return numbers;
+
+  let min = Math.min(...numbers);
+  let max = Math.max(...numbers);
+  let sumMIN = max + min;
+  let sumMAX = max - min;
+  numbers.push(sumMIN);
+  numbers.unshift(sumMAX);
+  return numbers;
 }
 
 /*
@@ -30,7 +49,11 @@ Hint: this can be done by making 2 lists and sorting each of them
 before combining them.
 */
 export function xLetterFirst(words) {
-  // YOUR CODE HERE
+  let ar = []
+  words.sort();
+  ar.unshift(words.pop());
+  ar.unshift(words.pop());
+  return ar.concat(words);
 }
 
 /*
@@ -40,5 +63,16 @@ e.g. [[1, 7], [1, 3], [3, 4, 5], [2, 2]] yields
 [[2, 2], [1, 3], [3, 4, 5], [1, 7]]
 */
 export function sortByLast(nestedArrays) {
-  // YOUR CODE HERE
+  let arr = [];
+  let index = [];
+  let result = [];
+  for(let i = 0; i < nestedArrays.length; i += 1) {
+    index.push(nestedArrays[i][1]);
+    arr.push(nestedArrays[i])
+  }
+  for(let i = 0; i < nestedArrays.length; i += 1) {
+    result.push(nestedArrays[index.indexOf(Math.min(...index))]);
+    index[index.indexOf(Math.min(...index))] = Infinity;
+  }
+  return result;
 }
